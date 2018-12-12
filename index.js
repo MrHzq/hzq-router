@@ -1,2 +1,2 @@
-var hzqRouter = require('./lib/hzq-router.js')
+var hzqRouter = require('./lib/hzq-router.min.js')
 module.exports = hzqRouter
