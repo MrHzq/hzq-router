@@ -1,4 +1,4 @@
-# [hzq-router](<(https://github.com/MrHzq/hzq-router)>)
+# [hzq-router](https://github.com/MrHzq/hzq-router)
 
 ## vue 路由封装插件
 
