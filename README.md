@@ -97,8 +97,9 @@ let all = {
 
 因此你可以这样使用：`hzqRouter(all,'pages')`
 
-2. 返回结果：正儿八经的`vue-router`数据
-   ![返回结果](./路由返回.png)
+2. 返回结果：正儿八经的`vue-router`数据<br>
+
+   ![返回结果](./路由返回.png)<br>
     > 其中 component 使用了路由懒加载
 
 ## 4. `routes.unshift({ path: '/', redirect: '/login' })`：手动加入路由重定向
