@@ -1,22 +1,24 @@
 {
-  "name": "hzq-router",
-  "version": "1.0.0",
-  "description": "vue router function",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MrHzq/hzq-router.git"
-  },
-  "keywords": [
-    "vue-router"
-  ],
-  "author": "hzq",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MrHzq/hzq-router/issues"
-  },
-  "homepage": "https://github.com/MrHzq/hzq-router#readme"
+    "name": "hzq-router",
+    "version": "1.0.0",
+    "description": "vue router function",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MrHzq/hzq-router.git"
+    },
+    "keywords": [
+        "vue-router"
+    ],
+    "readme": "使用手册https://github.com/MrHzq/hzq-router",
+    "readmeFilename": "README.md",
+    "author": "hzq",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/MrHzq/hzq-router/issues"
+    },
+    "homepage": "https://github.com/MrHzq/hzq-router#readme"
 }
