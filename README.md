@@ -1,5 +1,9 @@
 # [hzq-router](https://github.com/MrHzq/hzq-router)
 
+[GitHub 源码](https://github.com/MrHzq/hzq-router)
+
+[npm 包](https://www.npmjs.com/package/hzq-router)
+
 ## vue 路由封装插件
 
 ### 将传入的路由参数，转为 vue-router 指定的路由对象
@@ -99,7 +103,8 @@ let all = {
 
 2. 返回结果：正儿八经的`vue-router`数据<br>
 
-   ![返回结果](./路由返回.png)<br>
+    ![返回结果](./路由返回.png)<br>
+
     > 其中 component 使用了路由懒加载
 
 ## 4. `routes.unshift({ path: '/', redirect: '/login' })`：手动加入路由重定向
