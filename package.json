@@ -1,8 +1,8 @@
 {
     "name": "hzq-router",
-    "version": "1.0.3",
+    "version": "2.0.0",
     "description": "vue router function",
-    "main": "index.js",
+    "main": "index.min.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },

@@ -6,105 +6,122 @@
 
 ## vue 路由封装插件
 
-### 将传入的路由参数，转为 vue-router 指定的路由对象
+> 将传入的路由参数，转为 vue-router 指定的路由对象
 
-### 安装：`npm i hzq-router -s`
+安装：`npm i hzq-router -s`
 
-### 使用：在`src/router/index.js`里面这样改造
+然后在 src/router/index.js 里面统一处理
 
 ```ruby
 import Vue from 'vue'
 import Router from 'vue-router'
-import hzqRouter from 'hzq-router'
+import hzqRouter from 'hzq-Router'
 Vue.use(Router)
 
-let all = Object.assign({
-    '/': [
-        { name: 'login' },
-        {
-            name: 'home',
-            children: ['publish-article', 'my-article'],
-            meta: { requiresAuth: true }
-        }
-    ]
+let routes = _hzqRouter({
+    rc: require.context('@/views', true, /\.vue$/), // 页面级的.vue存放位置，必传
+    meta: { // 路由元，以path为key，可选
+        home: { add: true },
+        login: { edit: true },
+        'add-channel': { add: true },
+        'edit-channel': { edit: true }
+    },
+    redirect: '/test',  // '/'的重定向，可选
+    rootFile: 'views', // 页面级的.vue存放的文件夹，可选，默认为:views
 })
-let routes = hzqRouter(all)
-routes.unshift({ path: '/', redirect: '/login' })
-
 export default new Router({ routes })
+
 ```
 
-### 使用说明
+## 基础路由
 
-## 1. 引入`hzq-router`插件：`import hzqRouter from 'hzq-router'`
 
-## 2. 构造你的路由数据：
+### 假设 views 的目录结构如下：
 
 ```ruby
-let all = {
-    '/': [
-        { name: 'login' },
-        {
-            name: 'home',
-            children: ['publish-article', 'my-article'],
-            meta: { requiresAuth: true }
-        }
-    ]
-}
+views/
+--| user/
+-----| user-edit.vue
+-----| user-info.vue
+--| login.vue
+--| home.vue
 ```
+### 那么，hzq-router 自动生成的路由配置如下：
+```ruby
+[
+    {
+        path:'/login',
+        name:'login',
+        component:import('@/views/login.vue')
+    },
+    {
+        path:'/home',
+        name:'home',
+        component:import('@/views/home.vue')
+    },
+    {
+        path:'/user-info',
+        name:'user-info',
+        component:import('@/views/user/user-info.vue')
+    },
+    {
+        path:'/user-edit',
+        name:'user-edit',
+        component:import('@/views/user/user-edit.vue')
+    }
+]
+```
+## 嵌套路由
 
-### '/'：
+创建内嵌子路由，你需要添加一个 Vue 文件，同时添加一个**与该文件同名**的目录用来存放子视图组件。
 
-> 表示你页面级`.vue` 所放的位置，我是全部放在 `views` 文件夹下的；<br>
-> 当`.vue` 是放在 `views`的直接下级，则使用`'/'`来表示；<br>
-> 如果是放在`views/haha/**.vue`的，则使用文件名`'haha'`表示<br>
-
-### name：
-
-> 当没有`children`属性时，表示你的`.vue` 文件名称<br>
-> 有`children`属性时，既表示你的`.vue` 文件名称，又表示你的子路由放在的文件夹名称
-
-`'childre'`：表示你的子路由数据，是一个`Array`，里面直接存放子路由`.vue`文件的名称<br>
-
-`'meta'`：表示你的路由元信息<br>
-
-### 示例：
-
-当前我的`vue`项目`src`文件<br>
-
-![项目截图](./路由截图.png)<br>
-如果是以上的文件夹，则对应的路由数据应该为：
+### 假设 views 的目录结构如下：
 
 ```ruby
-let all = {
-    '/': [
-        { name: 'login' },
-        {
-            name: 'home',
-            children: ['publish-article', 'my-article'],
-            meta: { requiresAuth: true }
-        }
-    ],
-    haha: [
-        {
-            name: 'my-haha'
-        }
-    ]
-}
+views/
+--| home/
+-----| about.vue
+-----| product.vue
+--| user/
+-----| user-edit.vue
+-----| user-info.vue
+--| login.vue
+--| home.vue
 ```
-
-## 3. `let routes = hzqRouter(all)`：调用插件，返回 vue-router 格式的路由对象
-
-1. `hzqRouter(p1,p2)`
-    > 参数 p1：你要传递进去的路由数据，即上面的 all 对象<br>
-    > 参数 p2：你页面级路由放在的文件夹名称，我这默认的是'views'
-
-因此你可以这样使用：`hzqRouter(all,'pages')`
-
-2. 返回结果：正儿八经的`vue-router`数据<br>
-
-    ![返回结果](./路由返回.png)<br>
-
-    > 其中 component 使用了路由懒加载
-
-## 4. `routes.unshift({ path: '/', redirect: '/login' })`：手动加入路由重定向
+### 那么，hzq-router 自动生成的路由配置如下：
+```ruby
+[
+    {
+        path:'/login',
+        name:'login',
+        component:import('@/views/login.vue')
+    },
+    {
+        path:'/home',
+        name:'home',
+        component:import('@/views/home.vue'),
+        children:[
+            {
+                path:'product',
+                name:'product',
+                component:import('@/views/home/product.vue')
+            },
+            {
+                path:'about',
+                name:'about',
+                component:import('@/views/home/about.vue')
+            }
+        ]
+    },
+    {
+        path:'/user-info',
+        name:'user-info',
+        component:import('@/views/user/user-info.vue')
+    },
+    {
+        path:'/user-edit',
+        name:'user-edit',
+        component:import('@/views/user/user-edit.vue')
+    }
+]
+```
